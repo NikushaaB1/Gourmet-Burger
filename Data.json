@@ -1,0 +1,116 @@
+{
+  "restaurant": {
+    "name": "Gourmet Burger",
+    "tagline": "Crafted with passion, served with love",
+    "social": {
+      "facebook": "#",
+      "twitter": "#",
+      "instagram": "#"
+    }
+  },
+  "categories": [
+    { "id": "burger", "label": "Burger" },
+    { "id": "pizza", "label": "Pizza" },
+    { "id": "dessert", "label": "Dessert" }
+  ],
+  "menu": [
+    {
+      "id": 1,
+      "category": "burger",
+      "name": "Vegan Burger",
+      "description": "A wholesome plant-based patty loaded with fresh greens, tomato, pickles, and our signature vegan sauce on a toasted sesame bun.",
+      "price": 19.90,
+      "image": "images/vegan-burger.png",
+      "badges": [
+        { "label": "Vegan", "type": "vegan" },
+        { "label": "New!", "type": "new" }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "burger",
+      "name": "Fish Burger",
+      "description": "Crispy golden fish fillet with creamy tartar sauce, fresh lettuce, and a soft brioche bun. Ocean fresh every day.",
+      "price": 8.99,
+      "image": "images/fish-burger.png",
+      "badges": [
+        { "label": "Popular", "type": "popular" }
+      ]
+    },
+    {
+      "id": 3,
+      "category": "burger",
+      "name": "Bacon Cheeseburger",
+      "description": "Juicy beef patty topped with crispy streaky bacon, melted cheddar cheese, caramelized onions, and smoky BBQ sauce.",
+      "price": 7.45,
+      "image": "images/bacon-burger.png",
+      "badges": [
+        { "label": "New!", "type": "new" }
+      ]
+    },
+    {
+      "id": 4,
+      "category": "pizza",
+      "name": "Margherita",
+      "description": "Classic Italian pizza with San Marzano tomato sauce, fresh mozzarella, and fragrant basil leaves.",
+      "price": 12.50,
+      "image": "images/margherita.png",
+      "badges": [
+        { "label": "Vegan", "type": "vegan" }
+      ]
+    },
+    {
+      "id": 5,
+      "category": "pizza",
+      "name": "Pepperoni",
+      "description": "Loaded with premium pepperoni slices on a rich tomato base with stretchy mozzarella and Italian herbs.",
+      "price": 14.99,
+      "image": "images/pepperoni.png",
+      "badges": [
+        { "label": "Popular", "type": "popular" }
+      ]
+    },
+    {
+      "id": 6,
+      "category": "pizza",
+      "name": "BBQ Chicken",
+      "description": "Smoky BBQ base topped with tender grilled chicken, red onion, peppers, and a drizzle of honey mustard.",
+      "price": 15.90,
+      "image": "images/bbq-chicken.png",
+      "badges": [
+        { "label": "New!", "type": "new" }
+      ]
+    },
+    {
+      "id": 7,
+      "category": "dessert",
+      "name": "Chocolate Lava Cake",
+      "description": "Warm molten chocolate cake with a gooey dark chocolate centre, served with a scoop of vanilla ice cream.",
+      "price": 6.50,
+      "image": "images/lava-cake.png",
+      "badges": [
+        { "label": "Popular", "type": "popular" }
+      ]
+    },
+    {
+      "id": 8,
+      "category": "dessert",
+      "name": "Cheesecake",
+      "description": "Velvety New York-style cheesecake on a buttery graham cracker crust topped with fresh strawberry compote.",
+      "price": 5.99,
+      "image": "images/cheesecake.png",
+      "badges": []
+    },
+    {
+      "id": 9,
+      "category": "dessert",
+      "name": "Ice Cream Sundae",
+      "description": "Three scoops of premium gelato with hot fudge, whipped cream, crushed nuts, and a maraschino cherry on top.",
+      "price": 4.75,
+      "image": "images/sundae.png",
+      "badges": [
+        { "label": "New!", "type": "new" }
+      ]
+    }
+  ]
+}

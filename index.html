@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gourmet Burger — Order burgers, pizzas & desserts online. Fast delivery, amazing taste." />
+  <title>Gourmet Burger</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍔</text></svg>" />
+  <link rel="stylesheet" href="Style/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════ -->
+<header>
+  <div class="header__left">
+    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" style="display:none">
+      <span></span><span></span><span></span>
+    </button>
+    <!-- Search -->
+    <div class="header__search">
+      <input id="search-input" type="search" placeholder="Search menu..." autocomplete="off" />
+      <span class="search-clear" id="search-clear" title="Clear">✕</span>
+    </div>
+  </div>
+
+  <!-- Logo -->
+  <div class="header__logo">
+    <small>Gourmet</small>
+    <span class="header__logo-text">Burger</span>
+  </div>
+
+  <div class="header__right">
+    <div id="user-info-mini" class="user-info-mini" style="display:none">
+      <div class="user-avatar">👤</div>
+      <span id="username-mini"></span>
+    </div>
+    <button class="btn-order" onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'})">Order Online</button>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     SIDE NAV
+═══════════════════════════════════════════ -->
+<nav id="nav-sidebar" class="nav-sidebar" aria-label="Site navigation">
+  <div class="nav-sidebar__header">
+    <h3>🍔 Gourmet</h3>
+    <button id="nav-close" class="nav-close" aria-label="Close">✕</button>
+  </div>
+  <div class="nav-user" id="nav-user-block">
+    <div id="nav-user-name" class="nav-user__name"></div>
+    <div id="nav-user-email" class="nav-user__email"></div>
+  </div>
+  <div class="nav-links">
+    <a href="#menu-section" class="nav-link" onclick="closeNav()">🍔 Browse Menu</a>
+    <a href="#" class="nav-link" onclick="openProfileModal();closeNav()">👤 My Profile</a>
+    <a href="#" class="nav-link" onclick="openMyOrders();closeNav()">📋 My Orders</a>
+    <a href="#" id="admin-link" class="nav-link" onclick="openAdminPanel();closeNav()" style="display:none">⚙️ Admin Panel</a>
+    <hr class="nav-divider">
+    <a href="#gallery" class="nav-link" onclick="closeNav()">📷 Gallery</a>
+    <a href="#contact" class="nav-link" onclick="closeNav()">📬 Contact Us</a>
+    <hr class="nav-divider">
+    <a href="#" class="nav-link nav-link--danger" onclick="handleLogout()">👋 Logout</a>
+  </div>
+</nav>
+<div id="nav-overlay" class="nav-overlay"></div>
+
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT (hidden until login)
+═══════════════════════════════════════════ -->
+<div id="main-content" style="display:none">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__tag">🔥 Fresh Every Day</div>
+      <h1>Crafted with<br>Passion &amp; Love</h1>
+      <p>Premium burgers, hand-tossed pizzas &amp; irresistible desserts — delivered to your door</p>
+      <div class="hero__btns">
+        <button class="btn-hero-primary" onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'})">Order Now 🍔</button>
+        <button class="btn-hero-outline" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">View Gallery</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-item__num">500+</div><div class="stat-item__label">Daily Orders</div></div>
+    <div class="stat-item"><div class="stat-item__num">4.9★</div><div class="stat-item__label">Customer Rating</div></div>
+    <div class="stat-item"><div class="stat-item__num">30min</div><div class="stat-item__label">Avg Delivery</div></div>
+  </div>
+
+  <!-- Menu -->
+  <main id="menu-section">
+    <h2 class="section-heading">Our <span>Menu</span></h2>
+    <div id="category-tabs" class="category-tabs" role="tablist"></div>
+    <div id="menu-grid" class="menu-grid" role="list"></div>
+
+    <!-- Gallery -->
+    <section class="gallery-section" id="gallery">
+      <h2 class="section-heading">Food <span>Gallery</span></h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Burger" loading="lazy"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=80" alt="Burger stack" loading="lazy"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&q=80" alt="Cheeseburger" loading="lazy"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" alt="Pizza" loading="lazy"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" alt="Fries" loading="lazy"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80" alt="Dessert" loading="lazy"></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Get in <span style="color:var(--red)">Touch</span></h3>
+          <p>Have a question or special request? We'd love to hear from you. Fill in the form and we'll respond within 24 hours.</p>
+          <div class="contact-detail"><div class="contact-detail__icon">📍</div><div class="contact-detail__text"><strong>Address</strong>123 Burger Street, Tbilisi, Georgia</div></div>
+          <div class="contact-detail"><div class="contact-detail__icon">📞</div><div class="contact-detail__text"><strong>Phone</strong>+995 555 000 111</div></div>
+          <div class="contact-detail"><div class="contact-detail__icon">⏰</div><div class="contact-detail__text"><strong>Hours</strong>Mon–Sun: 10:00 – 23:00</div></div>
+          <div class="contact-detail"><div class="contact-detail__icon">📧</div><div class="contact-detail__text"><strong>Email</strong>hello@gourmetburger.ge</div></div>
+        </div>
+        <form class="contact-form" onsubmit="sendContactEmail(event)">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input id="contact-name" type="text" class="form-input" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input id="contact-email" type="email" class="form-input" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea id="contact-msg" class="form-input" rows="4" placeholder="Your message..." required style="resize:vertical"></textarea>
+          </div>
+          <button id="btn-contact-send" type="submit" class="btn-contact-send">Send Message 📧</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</div><!-- end #main-content -->
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer id="site-footer" style="display:none">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <h3>🍔 Gourmet Burger</h3>
+      <p>Premium burgers crafted with the finest ingredients. Delivered fresh to your door since 2018.</p>
+      <div class="footer__socials">
+        <a href="#" class="footer__social-icon" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="footer__social-icon" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="footer__social-icon" aria-label="Twitter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h4>Menu</h4>
+      <a href="#" onclick="switchCategory('burger')">Burgers</a>
+      <a href="#" onclick="switchCategory('pizza')">Pizzas</a>
+      <a href="#" onclick="switchCategory('dessert')">Desserts</a>
+    </div>
+    <div class="footer__col">
+      <h4>Account</h4>
+      <a href="#" onclick="openProfileModal()">My Profile</a>
+      <a href="#" onclick="openMyOrders()">My Orders</a>
+      <a href="#" onclick="openCartModal()">Cart</a>
+      <a href="#" onclick="handleLogout()">Logout</a>
+    </div>
+    <div class="footer__col">
+      <h4>Info</h4>
+      <a href="#contact">Contact Us</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> <strong>Gourmet Burger</strong>. All rights reserved. Made with 🍔 &amp; ❤️</span>
+    <button class="scroll-top" onclick="scrollToTop()" aria-label="Scroll to top">↑</button>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     CART BUBBLE
+═══════════════════════════════════════════ -->
+<button id="cart-bubble" class="cart-bubble" aria-label="View cart">
+  <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  <span id="cart-count" class="cart-count" style="display:none">0</span>
+</button>
+
+<!-- Toast -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+<!-- ═══════════════════════════════════════════
+     LOGIN MODAL
+═══════════════════════════════════════════ -->
+<div id="login-overlay" class="modal-overlay">
+  <div class="login-modal">
+    <div class="login-modal__logo">
+      <div style="font-size:40px;margin-bottom:8px">🍔</div>
+      <h2>Gourmet Burger</h2>
+      <p>Sign in to start ordering</p>
+    </div>
+
+    <button id="btn-google-login" class="btn-google">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="auth-divider">— or sign in with email —</div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input id="login-email" type="email" class="form-input" placeholder="admin@burger.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input id="login-password" type="password" class="form-input" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+      <div id="login-error" class="form-error"></div>
+      <button id="btn-email-login" type="submit" class="btn-login">Sign In</button>
+    </form>
+
+    <p class="form-switch">Don't have an account? <a onclick="switchToRegister()">Register</a></p>
+    <p style="text-align:center;font-size:11px;color:#aaa;margin-top:14px">Demo: admin@burger.com / admin123</p>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div id="register-overlay" class="modal-overlay">
+  <div class="login-modal">
+    <div class="login-modal__logo">
+      <div style="font-size:40px;margin-bottom:8px">🍔</div>
+      <h2>Create Account</h2>
+      <p>Join us and start ordering</p>
+    </div>
+
+    <button id="btn-google-register" class="btn-google">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+
+    <div class="auth-divider">— or register with email —</div>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input id="reg-name" type="text" class="form-input" placeholder="John Doe" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input id="reg-email" type="email" class="form-input" placeholder="you@example.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input id="reg-password" type="password" class="form-input" placeholder="At least 6 characters" required autocomplete="new-password" minlength="6" />
+      </div>
+      <div id="register-error" class="form-error"></div>
+      <button id="btn-email-register" type="submit" class="btn-login">Create Account</button>
+    </form>
+
+    <p class="form-switch">Already have an account? <a onclick="switchToLogin()">Sign In</a></p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     ITEM DETAIL MODAL
+═══════════════════════════════════════════ -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div class="modal">
+    <button class="modal__close" onclick="closeModal()" aria-label="Close">✕</button>
+    <img id="modal-img" class="modal__image" src="" alt="" />
+    <div class="modal__body">
+      <div id="modal-badges" class="modal__badges"></div>
+      <h2 id="modal-name" class="modal__name"></h2>
+      <p id="modal-desc" class="modal__desc"></p>
+      <div class="modal__footer">
+        <span id="modal-price" class="modal__price"></span>
+        <button id="modal-add-btn" class="btn-select">Add to Cart</button>
+      </div>
+      <!-- Reviews -->
+      <div id="modal-reviews"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     CART MODAL
+═══════════════════════════════════════════ -->
+<div id="cart-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Your Cart">
+  <div class="modal cart-modal">
+    <button class="modal__close" onclick="closeCartModal()" aria-label="Close">✕</button>
+    <div class="modal__header"><h2 class="modal__title">🛒 Your Cart</h2></div>
+    <div class="modal__body">
+      <div id="cart-items-list" class="cart-items-list"></div>
+      <div class="cart-total-row">
+        <span class="cart-total-label">Total</span>
+        <span id="cart-total" class="cart-total-amount">$0.00</span>
+      </div>
+      <button id="btn-checkout" class="btn-checkout">Checkout &amp; Place Order</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PROFILE MODAL
+═══════════════════════════════════════════ -->
+<div id="profile-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="My Profile">
+  <div class="modal modal--medium">
+    <button class="modal__close" onclick="closeProfileModal()" aria-label="Close">✕</button>
+    <div class="modal__header"><h2 class="modal__title">👤 My Profile</h2></div>
+    <div class="modal__body">
+      <div class="profile-grid">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input id="profile-name" type="text" class="form-input" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input id="profile-email" type="email" class="form-input" readonly style="opacity:.6" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input id="profile-phone" type="tel" class="form-input" placeholder="+995 555 000 000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <input id="profile-city" type="text" class="form-input" placeholder="Tbilisi" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Delivery Address</label>
+        <input id="profile-address" type="text" class="form-input" placeholder="Street, apartment number..." />
+      </div>
+      <button class="btn-login" style="margin-top:8px" onclick="saveProfile()">Save Profile ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     MY ORDERS MODAL
+═══════════════════════════════════════════ -->
+<div id="orders-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="My Orders">
+  <div class="modal modal--medium">
+    <button class="modal__close" onclick="closeMyOrders()" aria-label="Close">✕</button>
+    <div class="modal__header"><h2 class="modal__title">📋 My Orders</h2></div>
+    <div class="modal__body">
+      <div id="orders-list"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     ADMIN PANEL MODAL
+═══════════════════════════════════════════ -->
+<div id="admin-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Admin Panel">
+  <div class="modal modal--large">
+    <button class="modal__close" onclick="closeAdminPanel()" aria-label="Close">✕</button>
+    <div class="modal__header">
+      <h2 class="modal__title">⚙️ Admin Panel</h2>
+      <div class="admin-tabs-bar">
+        <button class="admin-tab-btn active" onclick="switchAdminTab('products',this)">📦 Products</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('analytics',this)">📊 Analytics</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('orders',this)">🧾 Orders</button>
+      </div>
+    </div>
+    <div class="modal__body">
+
+      <!-- Products -->
+      <div id="admin-products" class="admin-tab-content active">
+        <button class="btn-add-product" onclick="openAddProductForm()">+ Add New Product</button>
+        <table class="admin__table">
+          <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr></thead>
+          <tbody id="admin-products-list"></tbody>
+        </table>
+      </div>
+
+      <!-- Analytics -->
+      <div id="admin-analytics" class="admin-tab-content">
+        <div class="stats-grid">
+          <div class="stat-card"><h4>Total Orders</h4><p id="stat-orders" class="stat-number">0</p></div>
+          <div class="stat-card"><h4>Revenue</h4><p id="stat-revenue" class="stat-number">$0</p></div>
+          <div class="stat-card"><h4>Menu Items</h4><p id="stat-users" class="stat-number">0</p></div>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div id="admin-orders" class="admin-tab-content">
+        <table class="admin__table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="admin-orders-list"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     ADD PRODUCT MODAL (Admin)
+═══════════════════════════════════════════ -->
+<div id="add-product-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Add Product">
+  <div class="modal modal--medium">
+    <button class="modal__close" onclick="closeAddProductForm()" aria-label="Close">✕</button>
+    <div class="modal__header"><h2 class="modal__title">+ Add New Product</h2></div>
+    <div class="modal__body">
+      <form id="add-product-form">
+        <div class="profile-grid">
+          <div class="form-group">
+            <label class="form-label">Product Name *</label>
+            <input id="product-name" type="text" class="form-input" placeholder="e.g., Deluxe Burger" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select id="product-category" class="form-input" required>
+              <option value="">Select…</option>
+              <option value="burger">Burger</option>
+              <option value="pizza">Pizza</option>
+              <option value="dessert">Dessert</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price ($) *</label>
+            <input id="product-price" type="number" class="form-input" placeholder="9.99" step="0.01" min="0" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Badges</label>
+            <input id="product-badges" type="text" class="form-input" placeholder="vegan, new, popular" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description *</label>
+          <textarea id="product-desc" class="form-input" rows="3" placeholder="Describe your product..." required style="resize:vertical"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image URL (leave blank for default)</label>
+          <input id="product-image" type="url" class="form-input" placeholder="https://images.unsplash.com/..." />
+        </div>
+        <button type="submit" class="btn-login">Add Product ✓</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════ -->
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+<!-- Firebase v8 compat (works with window.firebase) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- Firebase + EmailJS config -->
+<script src="JS/firebase-config.js"></script>
+
+<!-- App -->
+<script src="JS/script.js"></script>
+
+</body>
+</html>
